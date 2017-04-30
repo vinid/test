@@ -1,11 +1,9 @@
 BeautifulSoup==3.2.1
 CherryPy==5.4.0
-Cython==0.20.1.post0
 Django==1.9.2
 Flask==0.10.1
 Flask-RESTful==0.3.5
 Jinja2==2.7.2
-Keras==1.1.1
 Markdown==2.4
 MarkupSafe==0.18
 MySQL-python==1.2.3
