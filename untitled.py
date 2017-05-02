@@ -3,6 +3,7 @@ from flask import jsonify, send_from_directory
 import pandas as pd
 import os
 import json
+import numpy as np
 app = Flask(__name__)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
@@ -27,10 +28,16 @@ def predict():
 
     real_values = data["Reale"].values.tolist()
     predicted_values = data["Previsto"].values.tolist()
+
+    mean_real = np.mean(real_values)
+    predicted_mean = np.mean(predicted_values)
+
     zipped = zip(dates, real_values, predicted_values)
     column_names = ['date', 'real', 'predicted']
     return_value = dict()
     return_value["data"] = [dict(zip(column_names, row)) for row in zipped]
+    return_value["mean_real"] = mean_real
+    return_value["predicted_mean"] = predicted_mean
     return json.dumps(return_value, indent=1)
 
 @app.route('/select-month/')

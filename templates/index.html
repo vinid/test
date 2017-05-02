@@ -168,6 +168,18 @@
                     <div id="myfirstchart" style="height: 250px;"></div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="predicted_mean">
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div id="real_mean">
+
+                    </div>
+                </div>
+            </div>
 
         </div>
         <!-- /.container -->
@@ -228,9 +240,12 @@
                data: $("#idForm").serialize(), // serializes the form's elements.
                success: function(json)
                {
+                   var value = JSON.parse(json)
+                   $("#predicted_mean").html("<h2>Average of predicted values: " + value.predicted_mean+ "</h2>");
+                   $("#real_mean").html("<h2>Average of observed values: " + value.mean_real+ "</h2>");
                     console.log(typeof json);
                     console.log(json.data);
-                    var value = JSON.parse(json);
+                    ;
                     var chart = new Morris.Line({
                       // ID of the element in which to draw the chart.
                       element: 'myfirstchart',
@@ -243,7 +258,8 @@
                       ykeys: ['real', 'predicted'],
                       // Labels for the ykeys -- will be displayed when you hover over the
                       // chart.
-                      labels: ['Observed Value', 'Predicted Value']
+                      labels: ['Observed Value', 'Predicted Value'],
+                      lineColors: ['#555', '#ff0000']
                     });
                }
              });
