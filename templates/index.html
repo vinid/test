@@ -153,10 +153,19 @@
                     <form id="idForm" >
                       <div class="form-group">
                         <label for="formGroupExampleInput">Select a Month</label>
-                          <select class="form-control" id="formGroupExampleInput" placeholder="Example input">
-                            <option value="gennaio">Gennaio</option>
-                            <option value="febbraio">Febbraio</option>
-                            <option value="marzo">Marzo</option>
+                          <select class="form-control" id="form_month">
+                            <option value="Gennaio">Gennaio</option>
+                            <option value="Febbraio">Febbraio</option>
+                            <option value="Marzo">Marzo</option>
+                            <option value="Aprile">Aprile</option>
+                            <option value="Maggio">Maggio</option>
+                            <option value="Giugno">Giugno</option>
+                            <option value="Luglio">Luglio</option>
+                            <option value="Agosto">Agosto</option>
+                            <option value="Settembre">Settembre</option>
+                            <option value="Ottobre">Ottobre</option>
+                            <option value="Novembre">Novembre</option>
+                            <option value="Dicembre">Dicembre</option>
                           </select>
                       </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -231,21 +240,18 @@
 
         $("#idForm").submit(function(e) {
         $("#myfirstchart").empty();
-        var url = "/predict/"; // the script where you handle the form input.
+        var url = "/predict"; // the script where you handle the form input.
 
         $.ajax({
                type: "POST",
-               url: url,
-               contentType: "application/json; charset=utf-8",
+               url: url + "?month=" + $( "#form_month" ).val() ,
                data: $("#idForm").serialize(), // serializes the form's elements.
                success: function(json)
                {
                    var value = JSON.parse(json)
                    $("#predicted_mean").html("<h2>Average of predicted values: " + value.predicted_mean+ "</h2>");
                    $("#real_mean").html("<h2>Average of observed values: " + value.mean_real+ "</h2>");
-                    console.log(typeof json);
-                    console.log(json.data);
-                    ;
+
                     var chart = new Morris.Line({
                       // ID of the element in which to draw the chart.
                       element: 'myfirstchart',
