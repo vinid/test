@@ -49,6 +49,15 @@ def dispatch_date(month):
     if month == "Dicembre":
         start_date = "2016-12-1"
         end_date = "2016-12-31"
+    if month == "Gennaio17":
+        start_date = "2016-01-1"
+        end_date = "2016-01-31"
+    if month == "Febbraio17":
+        start_date = "2016-02-1"
+        end_date = "2016-02-28"
+    if month == "Marzo17":
+        start_date = "2016-03-1"
+        end_date = "2016-03-31"
     return start_date, end_date
 
 
@@ -69,9 +78,11 @@ def predict():
     for i in dates_:
         dates.append(i)
 
-
     real_values = data["Osservati"].values.tolist()
     predicted_values = data["Previsti"].values.tolist()
+
+    real_values = [round(elem, 2) for elem in real_values]
+    predicted_values = [round(elem, 2) for elem in predicted_values]
 
     mean_real = np.mean(real_values)
     predicted_mean = np.mean(predicted_values)
@@ -80,8 +91,8 @@ def predict():
     column_names = ['date', 'real', 'predicted']
     return_value = dict()
     return_value["data"] = [dict(zip(column_names, row)) for row in zipped]
-    return_value["mean_real"] = mean_real
-    return_value["predicted_mean"] = predicted_mean
+    return_value["mean_real"] = round(mean_real, 2)
+    return_value["predicted_mean"] = round(predicted_mean,2)
     return json.dumps(return_value, indent=1)
 
 @app.route('/select-month/')
