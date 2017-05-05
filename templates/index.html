@@ -255,8 +255,8 @@
                success: function(json)
                {
                    var value = JSON.parse(json)
-                   $("#predicted_mean").html("<h2>Expected average CCT: " + value.predicted_mean+ "</h2>");
-                   $("#real_mean").html("<h2>Observed average CCT: " + value.mean_real+ "</h2>");
+                   $("#predicted_mean").html("<h2>Expected average CCT: " + value.predicted_mean+ " euro/MWh </h2> ");
+                   $("#real_mean").html("<h2>Observed average CCT: " + value.mean_real+ " euro/MWh </h2>");
 
                     var chart = new Morris.Line({
                       // ID of the element in which to draw the chart.
