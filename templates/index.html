@@ -9,8 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Heroku App - Federica Mutti</title>
-
+    <title>Capstone Project - Federica Mutti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
     <!-- Bootstrap Core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
@@ -28,7 +29,20 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .katex {
+    font-size: 3em !important;
+    }
+    </style>
 
+    <style>
+        .borderexample
+        {
+        border-style:solid;
+
+        border-color:#fed300;
+        }
+        </style>
 </head>
 
 <body>
@@ -77,8 +91,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1 style="color: #ffff00">CCT Prediction</h1>
-                        <h1 style="color: #ffff00">for the North zone of Italy</h1>
+                        <h1 class = "borderexample" style="color: #fed300">CCT Prediction <br>
+                       for the North zone of Italy</h1>
 {#                        <hr class="intro-divider">#}
 {#                        <ul class="list-inline intro-social-buttons">#}
 {#                            <li>#}
@@ -108,15 +122,30 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-sm-6">
+                <div class="col-lg-12 col-sm-12">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
-                    <p class="lead">A special thanks to <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a> for providing the photographs that you see in this template. Visit their website to become a member.</p>
+                    <h2 class="section-heading">What is the CCT?</h2>
+                    <p class="lead">
+                        The CCT index is the difference between the purchase price (<strong>PUN</strong>) and the selling price of the enrgy (<strong>PZ</strong>):
+                    <div class="text-center">
+                        <div class="example tex" data-expr="CCT = PUN - PZ">   </div>
+                    </div>
+                    </p>
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Why Eni wants to predict it?</h2>
+                    <p class="lead">
+                        Each month Eni has to place a bid on an auction to buy a certain amount of energy
+                        from Terna S.p.A. that is in charge of the managment of the energy. Eni bids on the North and South areas of Italy
+                        because its production facilities are there. The main aim of this project is CCT prevision for the North areas of Italy.
+                    </p>
+                     <div class="text-center">
+                        <div class="example tex" data-expr="CCT_{North} = PUN - PZ_{North}">   </div>
+                    </div>
                 </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="../static/img/ipad.png" alt="">
-                </div>
+{#                <div class="col-lg-5 col-lg-offset-2 col-sm-6">#}
+{#                    <img class="img-responsive" src="../static/img/ipad.png" alt="">#}
+{#                </div>#}
             </div>
 
         </div>
@@ -133,8 +162,21 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
-                    <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
+                    <h2 class="section-heading">Data</h2>
+                    <p class="lead">The Series starts from the 1st January 2015 and ends the 30th April 2017. The time series granularity is daily.
+                        From the Figure on the left we can observe that the series is stationary and does not show seasonality. To verify the stationarity
+                        the Augmented Dckey Fuller test (<strong>ADF</strong>) was computed. </p>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <i style="color: grey" class="fa fa-gear fa-3x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h3 class="">ADF Test p-value = 0.004</h3>
+                            </div>
+                        </div>
+
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                     <img class="img-responsive" src="../static/img/dog.png" alt="">
@@ -146,45 +188,169 @@
 
     </div>
     <!-- /.content-section-b -->
+
+
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Autocorrelation</h2>
+                    <p class="lead">
+                        The correlogram and the Ljung-Box test are commonly used to verify if the series is autocorrleated.
+                        The results suggest that the series is autcorrelated. </p>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <i style="color: rosybrown" class="fa fa-gavel fa-3x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h3 class="">Ljung-Box test p-value = 0.004</h3>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="../static/img/ipad.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Neural Network</h2>
+                    <p class="lead">A Feed-Forward Neural Network has been used to predict the CCT.
+                        The network has one hidden layer with <strong><i>k</i></strong> nodes. In addition to the external regressor
+                        the model takes in input <strong><i>p</i></strong> lags of the target variable. More details can be found <a target="_blank" href="">here</a>. </p>
+                    <p class="lead">
+                        <strong>Details:</strong> p is the optimal number of lags according to <strong>AIC</strong>,
+                        while k is optimized thought the use of cross-validation  </p>
+
+
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Input Variables</h2>
+                    <div class="list-group">
+                        <div class="row">
+                            <div class="col-md-2 text-center">
+                                <i style="color: #d43f3a" class="fa fa-clock-o fa-3x" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-5">
+                                <h3>Lags</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 text-center">
+                                <i style="color: #fed300" class="fa fa-sun-o fa-3x" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-5">
+                                <h3>Season</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 text-center">
+                                <i style="color: cornflowerblue" class="fa fa-lightbulb-o fa-3x" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-10">
+                                <h3>Energy Transport Constraint
+                                   <button type="button" class="btn btn-xs btn-info btn-lg" data-toggle="modal" data-target="#myModal">Know More</button></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 text-center">
+                                <i class="fa fa-suitcase fa-3x" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-5">
+                                <h3>Working Day</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading text-center">Train & Prevision</h2>
+                    <p class="lead text-center">The training set includes the data gathered during the six months before the target month to predict. </p>
+                    <div class="center-block text-center">
+                        <img src="{{ url_for('static', filename='img/series.png') }}">
+                    </div>
+            </div>
+        </div>
+        <!-- /.container -->
+
+    </div>
+
+
+
+
+
     <a  name="prediction"></a>
     <div class="content-section-a">
 
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <form id="idForm" >
+                <h2 class="section-heading">Trend</h2>
+                <div class="col-lg-4 col-sm-4">
+                    <form id="idForm" class="form-inline">
                       <div class="form-group">
-                        <label for="formGroupExampleInput">Select a Month</label>
                           <select class="form-control" id="form_month">
-                            <option value="Gennaio">Gennaio 2016</option>
-                            <option value="Febbraio">Febbraio 2016</option>
-                            <option value="Marzo">Marzo 2016</option>
-                            <option value="Aprile">Aprile 2016</option>
-                            <option value="Maggio">Maggio 2016</option>
-                            <option value="Giugno">Giugno 2016</option>
-                            <option value="Luglio">Luglio 2016</option>
-                            <option value="Agosto">Agosto 2016</option>
-                            <option value="Settembre">Settembre 2016</option>
-                            <option value="Ottobre">Ottobre 2016</option>
-                            <option value="Novembre">Novembre 2016</option>
-                            <option value="Dicembre">Dicembre 2016</option>
-                            <option value="Gennaio17">Gennaio 2017</option>
-                            <option value="Febbraio17">Febbraio 2017</option>
-                            <option value="Marzo17">Marzo 2017</option>
+                            <option value="Gennaio">January 2016</option>
+                            <option value="Febbraio">February 2016</option>
+                            <option value="Marzo">March 2016</option>
+                            <option value="Aprile">April 2016</option>
+                            <option value="Maggio">May 2016</option>
+                            <option value="Giugno">June 2016</option>
+                            <option value="Luglio">July 2016</option>
+                            <option value="Agosto">August 2016</option>
+                            <option value="Settembre">September 2016</option>
+                            <option value="Ottobre">October 2016</option>
+                            <option value="Novembre">November 2016</option>
+                            <option value="Dicembre">December 2016</option>
+                            <option value="Gennaio17">January 2017</option>
+                            <option value="Febbraio17">February 2017</option>
+                            <option value="Marzo17">March 2017</option>
 
                           </select>
                       </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-info">Predict</button>
                     </form>
+                </div>
+                <div class="col-lg-8 col-sm-8 ">
+                    <div id="pk">
+
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <div class="clearfix"></div>
                     <div id="myfirstchart" style="height: 250px;"></div>
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-12">
+                    <div id="average"></div>
+                </div>
                 <div class="col-md-6">
                     <div id="predicted_mean">
 
@@ -192,10 +358,10 @@
                 </div>
                 <div class="col-md-6">
                     <div id="real_mean">
-
                     </div>
                 </div>
             </div>
+
 
         </div>
         <!-- /.container -->
@@ -212,26 +378,45 @@
                 <div class="col-lg-12">
                     <ul class="list-inline">
                         <li>
-                            <a href="#">Home</a>
+                            <a href="#description">Description</a>
                         </li>
-                        <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#about">About</a>
+                            <a href="#data">Data</a>
                         </li>
-                        <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#services">Services</a>
+                            <a href="#model">Model</a>
                         </li>
-                        <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#contact">Contact</a>
+                            <a href="#prediction">Prediction</a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+                    <p class="copyright text-muted small">Copyright &copy; 2016. All Rights Reserved</p>
                 </div>
             </div>
         </div>
     </footer>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Italy Transport Constraints</h4>
+      </div>
+      <div class="modal-body">
+          <img src="http://italymap.facts.co/italymapof/ItalyBlankMap.png" class="img-responsive">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
     <!-- jQuery -->
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
@@ -245,6 +430,13 @@
 
     <script>
 
+          window.onload = function() {
+              var tex = document.getElementsByClassName("tex");
+              Array.prototype.forEach.call(tex, function(el) {
+                  katex.render(el.getAttribute("data-expr"), el);
+              });
+          };
+
         $("#idForm").submit(function(e) {
         $("#myfirstchart").empty();
         var url = "/predict"; // the script where you handle the form input.
@@ -255,9 +447,11 @@
                data: $("#idForm").serialize(), // serializes the form's elements.
                success: function(json)
                {
-                   var value = JSON.parse(json)
-                   $("#predicted_mean").html("<h2>Expected average CCT: " + value.predicted_mean+ " euro/MWh </h2> ");
-                   $("#real_mean").html("<h2>Observed average CCT: " + value.mean_real+ " euro/MWh </h2>");
+                   var value = JSON.parse(json);
+                   $("#average").html('<h3 class="text-center">Average</h3>');
+                   $("#pk").html('<h3><i class="fa fa-clock-o fa-x" style="color: #d43f3a" aria-hidden="true"></i> p = 7  &nbsp; <i class="fa fa-ellipsis-v fa-x" style="color: brown" aria-hidden="true"></i> k = 5 </h3>');
+                   $("#predicted_mean").html("<h3><span class='label label-warning'> Expected CCT: " + value.predicted_mean+ " <i class='fa fa-eur' aria-hidden='true'></i> /MWh </span> </h3>");
+                       $("#real_mean").html("<h3><span class='label label-success'> Observed CCT: " + value.mean_real + " <i class='fa fa-eur' aria-hidden='true'></i>/MWh  </span> </h3>");
 
                     var chart = new Morris.Line({
                       // ID of the element in which to draw the chart.
@@ -272,7 +466,7 @@
                       // Labels for the ykeys -- will be displayed when you hover over the
                       // chart.
                       labels: ['Observed Value', 'Predicted Value'],
-                      lineColors: ['#555', '#ff0000']
+                      lineColors: ['#8DA554', '#e5ca4c']
                     });
                }
              });

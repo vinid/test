@@ -81,8 +81,8 @@ def predict():
     real_values = data["Osservati"].values.tolist()
     predicted_values = data["Previsti"].values.tolist()
 
-    real_values = [round(elem, 2) for elem in real_values]
-    predicted_values = [round(elem, 2) for elem in predicted_values]
+    real_values = [round(elem, 3) for elem in real_values]
+    predicted_values = [round(elem, 3) for elem in predicted_values]
 
     mean_real = np.mean(real_values)
     predicted_mean = np.mean(predicted_values)
@@ -91,8 +91,8 @@ def predict():
     column_names = ['date', 'real', 'predicted']
     return_value = dict()
     return_value["data"] = [dict(zip(column_names, row)) for row in zipped]
-    return_value["mean_real"] = round(mean_real, 2)
-    return_value["predicted_mean"] = round(predicted_mean,2)
+    return_value["mean_real"] = round(mean_real, 3)
+    return_value["predicted_mean"] = round(predicted_mean,3)
     return json.dumps(return_value, indent=1)
 
 @app.route('/select-month/')
@@ -101,4 +101,4 @@ def show_post():
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=1)
+    app.run(host='0.0.0.0', port=port)

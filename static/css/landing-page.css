@@ -35,8 +35,7 @@ h6 {
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background-color: black;
-    /*background: url(../img/intro-bg.jpg) no-repeat center center;*/
+    background: url('https://images5.alphacoders.com/441/441469.jpg') no-repeat center center;
     background-size: cover;
 }
 
@@ -117,8 +116,7 @@ h6 {
 .banner {
     padding: 100px 0;
     color: #f8f8f8;
-    background-color: black;
-    /*background: url(../img/banner-bg.jpg) no-repeat center center;*/
+    background: url('https://images5.alphacoders.com/441/441469.jpg') no-repeat center center;
     background-size: cover;
 }
 
