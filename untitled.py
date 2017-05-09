@@ -16,49 +16,84 @@ def dispatch_date(month):
     if month == "Gennaio":
         start_date = "2016-01-01"
         end_date = "2016-01-31"
+        p = 8
+        k = 6
     if month == "Febbraio":
         start_date = "2016-02-01"
         end_date = "2016-02-28"
+        p = 7
+        k = 8
     if month == "Marzo":
         start_date = "2016-03-01"
         end_date = "2016-03-31"
+        p = 7
+        k = 8
     if month == "Aprile":
         start_date = "2016-04-01"
         end_date = "2016-04-30"
+        p = 7
+        k = 8
     if month == "Maggio":
         start_date = "2016-05-01"
         end_date = "2016-05-31"
+        p = 12
+        k = 8
     if month == "Giugno":
         start_date = "2016-06-01"
         end_date = "2016-06-30"
+        p = 4
+        k = 4
     if month == "Luglio":
         start_date = "2016-07-01"
         end_date = "2016-07-31"
+        p = 13
+        k = 10
     if month == "Agosto":
         start_date = "2016-08-01"
         end_date = "2016-08-31"
+        p = 16
+        k = 12
     if month == "Settembre":
         start_date = "2016-09-01"
         end_date = "2016-09-30"
+        p = 16
+        k = 12
     if month == "Ottobre":
         start_date = "2016-10-1"
         end_date = "2016-10-31"
+        p = 20
+        k = 14
     if month == "Novembre":
         start_date = "2016-11-1"
         end_date = "2016-11-31"
+        p = 15
+        k = 10
     if month == "Dicembre":
         start_date = "2016-12-1"
         end_date = "2016-12-31"
+        p = 13
+        k = 10
     if month == "Gennaio17":
-        start_date = "2016-01-1"
-        end_date = "2016-01-31"
+        start_date = "2017-01-1"
+        end_date = "2017-01-31"
+        p = 13
+        k = 9
     if month == "Febbraio17":
-        start_date = "2016-02-1"
-        end_date = "2016-02-28"
+        start_date = "2017-02-1"
+        end_date = "2017-02-28"
+        p = 8
+        k = 7
     if month == "Marzo17":
-        start_date = "2016-03-1"
-        end_date = "2016-03-31"
-    return start_date, end_date
+        start_date = "2017-03-1"
+        end_date = "2017-03-31"
+        p = 8
+        k = 7
+    if month == "Aprile17":
+        start_date = "2017-04-1"
+        end_date = "2017-04-30"
+        p = 8
+        k = 8
+    return start_date, end_date, p, k
 
 
 @app.route('/')
@@ -67,7 +102,7 @@ def index():
 
 @app.route('/predict', methods=['POST', 'GET'])
 def predict():
-    start_date, end_date = dispatch_date(request.args.get("month"))
+    start_date, end_date, p, k = dispatch_date(request.args.get("month"))
 
     df = pd.read_csv(os.path.join(APP_STATIC, 'previsioni.csv'), delimiter=";")
     df["Data"] = pd.to_datetime(pd.Series(df["Data"]), format = '%d/%m/%Y').apply(lambda x: x.strftime('%Y-%m-%d'))
@@ -92,7 +127,43 @@ def predict():
     return_value = dict()
     return_value["data"] = [dict(zip(column_names, row)) for row in zipped]
     return_value["mean_real"] = round(mean_real, 3)
+    return_value["p_value"] = p
+    return_value["k_value"] = k
     return_value["predicted_mean"] = round(predicted_mean,3)
+    return json.dumps(return_value, indent=1)
+
+@app.route('/delta', methods=['POST', 'GET'])
+def delta():
+
+    df = pd.read_csv(os.path.join(APP_STATIC, 'deltas.csv'), delimiter=",")
+
+    dates = df["Date"].values.tolist()
+    deltas = df["Scarto"].values.tolist()
+
+    deltas = [round(elem, 3) for elem in deltas]
+
+    zipped = zip(dates, deltas)
+    column_names = ['date', 'deltas']
+    return_value = dict()
+    return_value["data"] = [dict(zip(column_names, row)) for row in zipped]
+    return json.dumps(return_value, indent=1)
+
+@app.route('/barchart', methods=['POST', 'GET'])
+def barchart():
+
+    df = pd.read_csv(os.path.join(APP_STATIC, 'deltas.csv'), delimiter=",")
+
+    dates = df["Date"].values.tolist()
+    observed = df["Observed"].values.tolist()
+    predicted = df["Predicted"].values.tolist()
+
+    observed = [round(elem, 3) for elem in observed]
+    predicted = [round(elem, 3) for elem in predicted]
+
+    zipped = zip(dates, observed, predicted)
+    column_names = ['date', 'observed', 'predicted']
+    return_value = dict()
+    return_value["data"] = [dict(zip(column_names, row)) for row in zipped]
     return json.dumps(return_value, indent=1)
 
 @app.route('/select-month/')

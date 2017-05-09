@@ -350,6 +350,7 @@
                             <option value="Gennaio17">January 2017</option>
                             <option value="Febbraio17">February 2017</option>
                             <option value="Marzo17">March 2017</option>
+                            <option value="Aprile17">April 2017</option>
 
                           </select>
                       </div>
@@ -24346,9 +24347,9 @@
                {
                    var value = JSON.parse(json);
                    $("#average").html('<h3 class="text-center">Average</h3>');
-                   $("#pk").html('<h3><i class="fa fa-clock-o fa-x" style="color: #d43f3a" aria-hidden="true"></i> p = 7  &nbsp; <i class="fa fa-ellipsis-v fa-x" style="color: brown" aria-hidden="true"></i> k = 5 </h3>');
+                   $("#pk").html('<h3><i class="fa fa-clock-o fa-x" style="color: #d43f3a" aria-hidden="true"></i>' + value.p_value + ' &nbsp; <i class="fa fa-ellipsis-v fa-x" style="color: brown" aria-hidden="true"></i> k = ' + value.k_value + ' </h3>');
                    $("#predicted_mean").html("<h3 class='text-center'><span class='label label-warning '> Expected CCT: " + value.predicted_mean+ " <i class='fa fa-eur' aria-hidden='true'></i> /MWh </span> </h3>");
-                       $("#real_mean").html("<h3 class='text-center'><span class='label label-success'> Observed CCT: " + value.mean_real + " <i class='fa fa-eur' aria-hidden='true'></i>/MWh  </span> </h3>");
+                   $("#real_mean").html("<h3 class='text-center'><span class='label label-success'> Observed CCT: " + value.mean_real + " <i class='fa fa-eur' aria-hidden='true'></i>/MWh  </span> </h3>");
 
                     var chart = new Morris.Line({
                       // ID of the element in which to draw the chart.
@@ -24377,6 +24378,35 @@
            $("#predicted_mean").html("");
            $("#real_mean").html("");
 
+
+            var url = "/barchart"; // the script where you handle the form input.
+
+            $.ajax({
+               type: "POST",
+               url: url,
+               success: function(json)
+               {
+                   var value = JSON.parse(json);
+
+                    var chart = new Morris.Bar({
+                      // ID of the element in which to draw the chart.
+                      element: 'myfirstchart',
+                      data: value.data,
+                      // Chart data records -- each entry in this array corresponds to a point on
+                      // the chart.
+                      // The name of the data record attribute that contains x-values.
+                      xkey: 'date',
+                      // A list of names of data record attributes that contain y-values.
+                      ykeys: ['observed', 'predicted'],
+                      // Labels for the ykeys -- will be displayed when you hover over the
+                      // chart.
+                      labels: ['Observed Average', 'Predicted Average'],
+                      lineColors: ['#8DA554', '#e5ca4c']
+                    });
+               }
+             });
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
         });
 
         $("#deltaplot").click(function(e) {
@@ -24385,7 +24415,34 @@
            $("#pk").html('');
            $("#predicted_mean").html("");
            $("#real_mean").html("");
+            var url = "/delta"; // the script where you handle the form input.
 
+            $.ajax({
+                   type: "POST",
+                   url: url,
+                   success: function(json)
+                   {
+                       var value = JSON.parse(json);
+
+                        var chart = new Morris.Line({
+                          // ID of the element in which to draw the chart.
+                          element: 'myfirstchart',
+                          data: value.data,
+                          // Chart data records -- each entry in this array corresponds to a point on
+                          // the chart.
+                          // The name of the data record attribute that contains x-values.
+                          xkey: 'date',
+                          // A list of names of data record attributes that contain y-values.
+                          ykeys: ['deltas'],
+                          // Labels for the ykeys -- will be displayed when you hover over the
+                          // chart.
+                          labels: ['Delta'],
+                          lineColors: ['#8DA554']
+                        });
+                   }
+                 });
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
         });
 
 
