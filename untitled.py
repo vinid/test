@@ -59,37 +59,37 @@ def dispatch_date(month):
         p = 16
         k = 12
     if month == "Ottobre":
-        start_date = "2016-10-1"
+        start_date = "2016-10-01"
         end_date = "2016-10-31"
         p = 20
         k = 14
     if month == "Novembre":
-        start_date = "2016-11-1"
+        start_date = "2016-11-01"
         end_date = "2016-11-31"
         p = 15
         k = 10
     if month == "Dicembre":
-        start_date = "2016-12-1"
+        start_date = "2016-12-01"
         end_date = "2016-12-31"
         p = 13
         k = 10
     if month == "Gennaio17":
-        start_date = "2017-01-1"
+        start_date = "2017-01-01"
         end_date = "2017-01-31"
         p = 13
         k = 9
     if month == "Febbraio17":
-        start_date = "2017-02-1"
+        start_date = "2017-02-01"
         end_date = "2017-02-28"
         p = 8
         k = 7
     if month == "Marzo17":
-        start_date = "2017-03-1"
+        start_date = "2017-03-01"
         end_date = "2017-03-31"
         p = 8
         k = 7
     if month == "Aprile17":
-        start_date = "2017-04-1"
+        start_date = "2017-04-01"
         end_date = "2017-04-30"
         p = 8
         k = 8
